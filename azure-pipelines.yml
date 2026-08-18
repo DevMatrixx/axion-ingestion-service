@@ -16,20 +16,20 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          docker build -t axion-app:$(Build.BuildId) $(System.DefaultWorkingDirectory)
+          docker build -t axion-ingestion-service:$(Build.BuildId) $(System.DefaultWorkingDirectory)
     
     - task: Bash@3
       inputs:
         targetType: 'inline'
         script: |
           mkdir -p $(Build.ArtifactStagingDirectory)
-          docker save axion-app:$(Build.BuildId) -o $(Build.ArtifactStagingDirectory)/axion-app.tar
+          docker save axion-ingestion-service:$(Build.BuildId) -o $(Build.ArtifactStagingDirectory)/axion-ingestion-service.tar
 
 
     - task: PublishPipelineArtifact@1
       displayName: Publish Docker Image Artifact
       inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)/axion-app.tar'
+        targetPath: '$(Build.ArtifactStagingDirectory)/axion-ingestion-service.tar'
         artifact: 'docker-image'
         publishLocation: 'pipeline'
 
@@ -49,7 +49,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          docker load -i $(Pipeline.Workspace)/docker-image/axion-app.tar
+          docker load -i $(Pipeline.Workspace)/docker-image/axion-ingestion-service.tar
     - task: AzureCLI@3
       displayName: Azure Login
       inputs:
@@ -63,7 +63,7 @@ stages:
       inputs:
         targetType: inline
         script: |
-          docker tag axion-app:$(Build.BuildId) todoclusteracr001.azurecr.io/axion-app:$(Build.BuildId)
+          docker tag axion-ingestion-service:$(Build.BuildId) todoclusteracr001.azurecr.io/axion-ingestion-service:$(Build.BuildId)
           
     
     - task: Bash@3
@@ -71,7 +71,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          docker push todoclusteracr001.azurecr.io/axion-app:$(Build.BuildId)
+          docker push todoclusteracr001.azurecr.io/axion-ingestion-service:$(Build.BuildId)
 
     
     
