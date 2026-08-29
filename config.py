@@ -11,10 +11,10 @@ from dataclasses import dataclass
 class Settings:
     # PostgreSQL connection string
     # Format: postgresql://<user>:<password>@<host>:<port>/<database>
-    # Example: postgresql://postgres:postgres@localhost:5432/axiondb
+    # Example: postgresql://postgres:postgres@10.244.0.246:5432/axiondb
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
-        "postgresql://postgres:Apple%40123@10.244.0.173:5432/postgres",
+        "postgresql://postgres:Apple%40123@postgres-svc:80/postgres",
     )
 
 settings = Settings()
