@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axion-ingestion-service
+spec:
+  selector:
+    matchLabels:
+      app: ingestion-service
+  template:
+    metadata:
+      labels:
+        app: ingestion-service
+    spec:
+      containers:
+        - name: axion-ingestion-service-container
+          image: todoclusteracr001.azurecr.io/axion-ingestion-service:866
+          ports:
+            - containerPort: 8000
+          
+                 
+            
+
+
