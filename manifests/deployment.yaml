@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: axion-ingestion-service-container
-          image: todoclusteracr001.azurecr.io/axion-ingestion-service:866
+          image: brijendra.azurecr.io/axion-ingestion-service:877
           ports:
             - containerPort: 8000
           
